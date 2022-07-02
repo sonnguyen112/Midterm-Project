@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.midtermproject.Adapters.ShopAdapter;
+import com.example.midtermproject.Adapters.ShopListener;
 import com.example.midtermproject.Models.Shop;
 import com.example.midtermproject.databinding.ActivityMainBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +36,17 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         ArrayList<Shop> shopList = new ArrayList<>();
-        ShopAdapter shopAdapter = new ShopAdapter(shopList, MainActivity.this);
+        ShopAdapter shopAdapter = new ShopAdapter(shopList, MainActivity.this, new ShopListener() {
+            @Override
+            public void onItemClick(Shop shop) {
+                Intent intent = new Intent(MainActivity.this, ProductActivity.class);
+                intent.putExtra("shopId", shop.getId());
+                intent.putExtra("shopName", shop.getName());
+                intent.putExtra("shopLocation", shop.getLocation());
+                intent.putExtra("shopImg", shop.getImg());
+                startActivity(intent);
+            }
+        });
         binding.ShopsRecyclerView.setAdapter(shopAdapter);
         binding.ShopsRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this,3));
 
@@ -53,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
         Picasso.get().load("https://a.cdn-hotels.com/gdcs/production141/d778/6b200721-9661-4680-aca2-d6e33ce46cf0.jpg?impolicy=fcrop&w=1600&h=1066&q=medium").placeholder(R.drawable.default_image_shop).into(binding.BigImg);
     }

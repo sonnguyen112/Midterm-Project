@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midtermproject.Models.Shop;
@@ -26,10 +28,12 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
     ArrayList<Shop> shopList;
     Context context;
+    ShopListener listener;
 
-    public ShopAdapter(ArrayList<Shop> shopList, Context context) {
+    public ShopAdapter(ArrayList<Shop> shopList, Context context, ShopListener listener) {
         this.shopList = shopList;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,15 +49,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         Picasso.get().load(shop.getImg()).placeholder(R.drawable.default_image_shop).into(holder.shopImage);
         holder.shopName.setText(shop.getName());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ProductActivity.class);
-                intent.putExtra("shopId", shop.getId());
-                intent.putExtra("shopName", shop.getName());
-                intent.putExtra("shopLocation", shop.getLocation());
-                intent.putExtra("shopImg", shop.getImg());
-                context.startActivity(intent);
+                listener.onItemClick(shop);
             }
         });
     }
@@ -67,12 +66,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
         ImageView shopImage;
         TextView shopName;
+        CardView item;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             shopImage = itemView.findViewById(R.id.shopImage);
             shopName = itemView.findViewById(R.id.shopName);
+            item = itemView.findViewById(R.id.item);
         }
     }
 }

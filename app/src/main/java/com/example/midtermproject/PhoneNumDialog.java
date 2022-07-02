@@ -55,6 +55,5 @@ public class PhoneNumDialog extends AppCompatDialogFragment {
     }
 
     public interface PhoneNumDialogListener{
-
     }
 }
