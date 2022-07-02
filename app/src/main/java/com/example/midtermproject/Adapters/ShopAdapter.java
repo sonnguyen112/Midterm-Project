@@ -1,6 +1,7 @@
 package com.example.midtermproject.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.midtermproject.Models.Shop;
+import com.example.midtermproject.ProductActivity;
 import com.example.midtermproject.R;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -44,6 +46,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         Picasso.get().load(shop.getImg()).placeholder(R.drawable.default_image_shop).into(holder.shopImage);
         holder.shopName.setText(shop.getName());
         holder.shopLocation.setText(shop.getLocation());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProductActivity.class);
+
+            }
+        });
     }
 
     @Override
