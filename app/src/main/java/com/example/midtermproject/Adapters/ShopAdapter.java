@@ -44,7 +44,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         Shop shop = shopList.get(position);
         Picasso.get().load(shop.getImg()).placeholder(R.drawable.default_image_shop).into(holder.shopImage);
         holder.shopName.setText(shop.getName());
-        holder.shopLocation.setText(shop.getLocation());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,14 +66,13 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView shopImage;
-        TextView shopName, shopLocation;
+        TextView shopName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             shopImage = itemView.findViewById(R.id.shopImage);
             shopName = itemView.findViewById(R.id.shopName);
-            shopLocation = itemView.findViewById(R.id.shopLocation);
         }
     }
 }
