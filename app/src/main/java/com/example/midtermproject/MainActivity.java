@@ -2,6 +2,7 @@ package com.example.midtermproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Shop> shopList = new ArrayList<>();
         ShopAdapter shopAdapter = new ShopAdapter(shopList, MainActivity.this);
         binding.ShopsRecyclerView.setAdapter(shopAdapter);
-        binding.ShopsRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        binding.ShopsRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this,3));
 
         database.getReference().child("Shops").addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,6 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        Picasso.get().load("https://a.cdn-hotels.com/gdcs/production141/d778/6b200721-9661-4680-aca2-d6e33ce46cf0.jpg?impolicy=fcrop&w=1600&h=1066&q=medium").placeholder(R.drawable.default_image_shop).into(binding.BigImg);
     }
 }
