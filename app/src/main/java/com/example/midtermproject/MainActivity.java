@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        database =FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         ArrayList<Shop> shopList = new ArrayList<>();
         ShopAdapter shopAdapter = new ShopAdapter(shopList, MainActivity.this);

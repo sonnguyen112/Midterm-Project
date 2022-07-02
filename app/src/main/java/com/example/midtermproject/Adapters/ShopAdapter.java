@@ -26,7 +26,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
     ArrayList<Shop> shopList;
     Context context;
-    FirebaseDatabase database;
 
     public ShopAdapter(ArrayList<Shop> shopList, Context context) {
         this.shopList = shopList;
@@ -51,7 +50,11 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductActivity.class);
-
+                intent.putExtra("shopId", shop.getId());
+                intent.putExtra("shopName", shop.getName());
+                intent.putExtra("shopLocation", shop.getLocation());
+                intent.putExtra("shopImg", shop.getImg());
+                context.startActivity(intent);
             }
         });
     }
