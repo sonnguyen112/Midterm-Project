@@ -7,19 +7,30 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/BigImg"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+
         android:id="@+id/header"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_below="@id/BigImg"
+        >
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Shop Name"
             android:textSize="30dp"
             android:layout_weight="1"
-            android:id="@+id/shopName"/>
+            android:id="@+id/shopName"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,12 +44,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header"
-        android:id="@+id/ProductssRecyclerView"/>
+        android:layout_above="@id/put_to_cart"
+        android:id="@+id/ProductssRecyclerView"
+        />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Put into cart"
         android:layout_alignParentBottom="true"
-        android:id="@+id/put_to_cart"/>
-
+        android:id="@+id/put_to_cart"
+        android:background="@color/teal_200"/>
 </RelativeLayout>

@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class ProductActivity extends AppCompatActivity {
         binding = ActivityProductBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
-
+        getSupportActionBar().hide();
         database =FirebaseDatabase.getInstance();
         ArrayList<Product> productList = new ArrayList<>();
         ProductAdapter productAdapter = new ProductAdapter(productList, ProductActivity.this);
@@ -40,6 +41,8 @@ public class ProductActivity extends AppCompatActivity {
         String shopName = getIntent().getStringExtra("shopName");
         String shopLocation = getIntent().getStringExtra("shopLocation");
         String shopImg = getIntent().getStringExtra("shopImg");
+        Picasso.get().load(shopImg).placeholder(R.drawable.default_image_shop).into(binding.BigImg);
+
 
         binding.shopName.setText(shopName);
         binding.shopLocation.setText(shopLocation);
