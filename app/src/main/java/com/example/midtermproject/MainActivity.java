@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.midtermproject.Adapters.ShopAdapter;
 import com.example.midtermproject.Adapters.ShopListener;
@@ -68,5 +69,12 @@ public class MainActivity extends AppCompatActivity {
 
         });
         Picasso.get().load("https://a.cdn-hotels.com/gdcs/production141/d778/6b200721-9661-4680-aca2-d6e33ce46cf0.jpg?impolicy=fcrop&w=1600&h=1066&q=medium").placeholder(R.drawable.default_image_shop).into(binding.BigImg);
+        binding.mapStores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, mapStoresActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

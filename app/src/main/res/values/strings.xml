@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MidtermProject</string>
+    <string name="title_activity_map_stores">mapStoresActivity</string>
 </resources>
