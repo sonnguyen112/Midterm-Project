@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,13 +30,13 @@ public class PhoneNumDialog extends AppCompatDialogFragment {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 })
                 .setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String phone = phoneNum.getText().toString();
+                        listener.thankYou();
                     }
                 });
 
@@ -55,5 +56,6 @@ public class PhoneNumDialog extends AppCompatDialogFragment {
     }
 
     public interface PhoneNumDialogListener{
+        void thankYou();
     }
 }

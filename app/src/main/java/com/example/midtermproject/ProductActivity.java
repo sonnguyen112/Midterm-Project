@@ -107,8 +107,9 @@ public class ProductActivity extends AppCompatActivity{
         });
     }
 
-    private void numberphoneDialog() {
-        PhoneNumDialog phoneNumDialog = new PhoneNumDialog();
-        phoneNumDialog.show(getSupportFragmentManager(), "Dialog");
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
