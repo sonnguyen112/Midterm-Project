@@ -2,9 +2,11 @@ package com.example.midtermproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -57,7 +59,15 @@ public class ProductActivity extends AppCompatActivity{
 
         binding.shopName.setText(shopName);
         binding.shopLocation.setText(shopLocation);
-
+        binding.shopLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri gmmIntentUri=Uri.parse("geo:0,0?q="+Uri.encode(shopLocation));
+                Intent intent= new Intent(Intent.ACTION_VIEW,gmmIntentUri );
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
+            }
+        });
         database.getReference().child("Products").child(shopId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -79,7 +89,7 @@ public class ProductActivity extends AppCompatActivity{
             }
         });
 
-        binding.putToCart.setOnClickListener(new View.OnClickListener() {
+        binding.put.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ArrayList<Good> goodList = new ArrayList<>();

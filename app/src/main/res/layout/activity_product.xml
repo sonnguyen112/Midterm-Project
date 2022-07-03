@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header"
-        android:layout_above="@id/put_to_cart"
+        android:layout_above="@id/put"
         android:id="@+id/ProductssRecyclerView"
         />
 
@@ -53,6 +53,6 @@
         android:layout_height="wrap_content"
         android:text="Put into cart"
         android:layout_alignParentBottom="true"
-        android:id="@+id/put_to_cart"
+        android:id="@+id/put"
         android:background="@color/teal_200"/>
 </RelativeLayout>
