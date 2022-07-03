@@ -23,10 +23,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     ArrayList<Product> productList;
     Context context;
+    ProductListener productListener;
 
-    public ProductAdapter(ArrayList<Product> productList, Context context) {
+    public ProductAdapter(ArrayList<Product> productList, Context context, ProductListener listener) {
         this.productList = productList;
         this.context = context;
+        this.productListener = listener;
     }
 
     @NonNull
@@ -43,10 +45,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.productName.setText(product.getName());
         holder.productPrice.setText("Price: " + String.valueOf(product.getPrice()) + "đ");
 
+        int index = position;
         holder.increase_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 holder.amount.setText(String.valueOf(Integer.valueOf(holder.amount.getText().toString())+1));
+                productListener.updateCountProduct("increase", index);
             }
         });
 
@@ -55,6 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             public void onClick(View view) {
                 if (Integer.valueOf(holder.amount.getText().toString()) > 0){
                     holder.amount.setText(String.valueOf(Integer.valueOf(holder.amount.getText().toString())-1));
+                    productListener.updateCountProduct("decrease", index);
                 }
             }
         });
@@ -80,5 +85,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             increase_amount = itemView.findViewById(R.id.increase_amount);
             decrease_amount = itemView.findViewById(R.id.decrease_amount);
         }
+    }
+
+    public interface ProductListener{
+        void updateCountProduct(String act, int indexProduct);
     }
 }
