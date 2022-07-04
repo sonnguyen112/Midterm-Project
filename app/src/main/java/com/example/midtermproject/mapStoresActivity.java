@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -17,12 +20,19 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.example.midtermproject.databinding.ActivityMapStoresBinding;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +40,7 @@ public class mapStoresActivity extends FragmentActivity implements OnMapReadyCal
 
     private GoogleMap mMap;
     private ActivityMapStoresBinding binding;
+    Bitmap markerImg = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +73,32 @@ public class mapStoresActivity extends FragmentActivity implements OnMapReadyCal
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         ArrayList<Shop> shopList = ShopArrayList.shopList;
+        LatLng lastLatLng = null;
         for (int i = 0; i < shopList.size(); i++){
+            Picasso.get().load(shopList.get(i).getImg()).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    markerImg = Bitmap.createScaledBitmap(bitmap, 120, 120, false);
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
             LatLng latLng =  requestCoordinate(shopList.get(i).getLocation());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(shopList.get(i).getName()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            if (i == shopList.size() - 1){
+                lastLatLng = latLng;
+            }
+            mMap.addMarker(new MarkerOptions().position(latLng).title(shopList.get(i).getName()).icon(BitmapDescriptorFactory.fromBitmap(markerImg)));
         }
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLatLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -76,7 +107,7 @@ public class mapStoresActivity extends FragmentActivity implements OnMapReadyCal
                 Toast.makeText(mapStoresActivity.this, markerName, Toast.LENGTH_SHORT).show();
                 String template = "geo:0,0?q=%s,%s(%s)";
                 String uri = String.format(template, marker.getPosition().latitude, marker.getPosition().longitude,Uri.encode(markerName));
-                Toast.makeText(mapStoresActivity.this, uri, Toast.LENGTH_SHORT).show();
+                Log.d("json", uri);
                 Uri gmmIntentUri=Uri.parse(uri);
                 Intent intent= new Intent(Intent.ACTION_VIEW,gmmIntentUri );
                 intent.setPackage("com.google.android.apps.maps");
