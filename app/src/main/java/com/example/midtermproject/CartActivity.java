@@ -11,13 +11,15 @@ import android.widget.Toast;
 import com.example.midtermproject.Adapters.GoodAdapter;
 import com.example.midtermproject.Models.Good;
 import com.example.midtermproject.databinding.ActivityCartBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class CartActivity extends AppCompatActivity implements PhoneNumDialog.PhoneNumDialogListener {
     ActivityCartBinding binding;
     int totalPrice = 0;
-    String shopId;
+    String shopId,shopName,shopImg,shopLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class CartActivity extends AppCompatActivity implements PhoneNumDialog.Ph
         getSupportActionBar().hide();
 
         shopId = getIntent().getStringExtra("shopId");
+        shopName=getIntent().getStringExtra("shopName");
+        shopImg=getIntent().getStringExtra("shopImg");
+        shopLocation=getIntent().getStringExtra("shopLocation");
         ArrayList<Good> goodList = GoodArrayList.goodList;
 
         for (int i = 0; i < goodList.size(); i++){
@@ -48,12 +53,16 @@ public class CartActivity extends AppCompatActivity implements PhoneNumDialog.Ph
         binding.cancelCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CartActivity.this, MainActivity.class);
+                Intent intent = new Intent(CartActivity.this, ProductActivity.class);
                 intent.putExtra("shopId", shopId);
+                intent.putExtra("shopName", shopName);
+                intent.putExtra("shopImg", shopImg);
+                intent.putExtra("shopLocation", shopLocation);
                 startActivity(intent);
             }
         });
     }
+
 
     private void numberphoneDialog() {
         PhoneNumDialog phoneNumDialog = new PhoneNumDialog();
@@ -73,4 +82,5 @@ public class CartActivity extends AppCompatActivity implements PhoneNumDialog.Ph
         intent.putExtra("shopId", shopId);
         startActivity(intent);
     }
+
 }

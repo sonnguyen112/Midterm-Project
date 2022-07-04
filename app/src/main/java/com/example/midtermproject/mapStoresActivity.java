@@ -74,8 +74,9 @@ public class mapStoresActivity extends FragmentActivity implements OnMapReadyCal
             public boolean onMarkerClick(@NonNull Marker marker) {
                 String markerName = marker.getTitle();
                 Toast.makeText(mapStoresActivity.this, markerName, Toast.LENGTH_SHORT).show();
-                String template = "geo:%s,%s";
-                String uri = String.format(template, marker.getPosition().latitude, marker.getPosition().longitude);
+                String template = "geo:0,0?q=%s,%s(%s)";
+                String uri = String.format(template, marker.getPosition().latitude, marker.getPosition().longitude,Uri.encode(markerName));
+                Toast.makeText(mapStoresActivity.this, uri, Toast.LENGTH_SHORT).show();
                 Uri gmmIntentUri=Uri.parse(uri);
                 Intent intent= new Intent(Intent.ACTION_VIEW,gmmIntentUri );
                 intent.setPackage("com.google.android.apps.maps");

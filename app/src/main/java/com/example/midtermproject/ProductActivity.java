@@ -32,7 +32,7 @@ public class ProductActivity extends AppCompatActivity{
         binding = ActivityProductBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
-
+        getSupportActionBar().hide();
         database =FirebaseDatabase.getInstance();
         ArrayList<Integer> countProduct = new ArrayList<>();
         ArrayList<Product> productList = new ArrayList<>();
@@ -110,6 +110,9 @@ public class ProductActivity extends AppCompatActivity{
                 Intent intent = new Intent(ProductActivity.this, CartActivity.class);
                 GoodArrayList.goodList = goodList;
                 intent.putExtra("shopId", shopId);
+                intent.putExtra("shopImg",shopImg);
+                intent.putExtra("shopName",shopName);
+                intent.putExtra("shopLocation",shopLocation);
                 startActivity(intent);
             }
         });
