@@ -41,9 +41,16 @@ public class ProductActivity extends AppCompatActivity{
             public void updateCountProduct(String act, int indexProduct) {
                 if (act.equals("increase")){
                     countProduct.set(indexProduct, countProduct.get(indexProduct) + 1);
+                    binding.put.setEnabled(true);
                 }
                 else if(act.equals("decrease")){
                     countProduct.set(indexProduct, countProduct.get(indexProduct) - 1);
+                    for (int i = 0; i < countProduct.size(); i++){
+                        if (countProduct.get(i) != 0){
+                            return;
+                        }
+                    }
+                    binding.put.setEnabled(false);
                 }
             }
         });
@@ -102,6 +109,7 @@ public class ProductActivity extends AppCompatActivity{
                 }
                 Intent intent = new Intent(ProductActivity.this, CartActivity.class);
                 GoodArrayList.goodList = goodList;
+                intent.putExtra("shopId", shopId);
                 startActivity(intent);
             }
         });

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class CartActivity extends AppCompatActivity implements PhoneNumDialog.PhoneNumDialogListener {
     ActivityCartBinding binding;
     int totalPrice = 0;
+    String shopId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class CartActivity extends AppCompatActivity implements PhoneNumDialog.Ph
 
         getSupportActionBar().hide();
 
-
+        shopId = getIntent().getStringExtra("shopId");
         ArrayList<Good> goodList = GoodArrayList.goodList;
 
         for (int i = 0; i < goodList.size(); i++){
@@ -48,6 +49,7 @@ public class CartActivity extends AppCompatActivity implements PhoneNumDialog.Ph
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CartActivity.this, MainActivity.class);
+                intent.putExtra("shopId", shopId);
                 startActivity(intent);
             }
         });
@@ -68,6 +70,7 @@ public class CartActivity extends AppCompatActivity implements PhoneNumDialog.Ph
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, ProductActivity.class);
+        intent.putExtra("shopId", shopId);
         startActivity(intent);
     }
 }
