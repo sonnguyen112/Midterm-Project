@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
-        ArrayList<Shop> shopList = new ArrayList<>();
+        ArrayList<Shop> shopList = ShopArrayList.shopList;
         ShopAdapter shopAdapter = new ShopAdapter(shopList, MainActivity.this, new ShopListener() {
             @Override
             public void onItemClick(Shop shop) {
@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, mapStoresActivity.class);
+                ShopArrayList.shopList = shopList;
                 startActivity(intent);
             }
         });

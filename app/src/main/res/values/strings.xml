@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MidtermProject</string>
     <string name="title_activity_map_stores">mapStoresActivity</string>
+    <string name="gg_api_key">AIzaSyA6UYj9r4QCv4e39hpkA8XoiS_1NvovBfc</string>
 </resources>
