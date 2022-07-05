@@ -75,12 +75,4 @@ public class CartActivity extends AppCompatActivity implements PhoneNumDialog.Ph
         startActivity(intent);
         Toast.makeText(this, "Thank You Very Much", Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, ProductActivity.class);
-        intent.putExtra("shopId", shopId);
-        startActivity(intent);
-    }
-
 }

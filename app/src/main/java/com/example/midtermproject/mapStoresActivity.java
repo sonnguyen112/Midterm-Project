@@ -98,7 +98,7 @@ public class mapStoresActivity extends FragmentActivity implements OnMapReadyCal
             mMap.addMarker(new MarkerOptions().position(latLng).title(shopList.get(i).getName()).icon(BitmapDescriptorFactory.fromBitmap(markerImg)));
         }
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLatLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(5), 2000, null);
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -131,5 +131,11 @@ public class mapStoresActivity extends FragmentActivity implements OnMapReadyCal
             e.printStackTrace();
         }
         return latLng;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(mapStoresActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
